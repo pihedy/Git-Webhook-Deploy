@@ -8,6 +8,8 @@ set_time_limit(0);
 $errorEmail = 'pihedy@gmail.com';
 $output = NULL;
 
+/* TODO: settings.php-t bevezetni! */
+
 require_once('handler.php');
 require_once('deploy.php');
 
