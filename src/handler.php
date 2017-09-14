@@ -2,12 +2,11 @@
 
 /**
  * handler
+ * @param mixed $settings 
  * @return mixed 
  */
-function handler() 
+function handler($settings) 
 {
-
-    $hookSecret = 'pihedmond';
     
     set_error_handler(function($severity, $message, $file, $line) {
         throw new \ErrorException($message, 0, $severity, $file, $line);
@@ -20,7 +19,7 @@ function handler()
     });
     $rawPost = NULL;
     
-    if($hookSecret !== NULL) {
+    if(DP_SECRET_KEY !== NULL) {
         if(!isset($_SERVER['HTTP_X_HUB_SIGNATURE'])){
             echo "Missing: HTTP Header X-Hub-Signature\n";
         } elseif (!extension_loaded('hash')) {
@@ -33,9 +32,9 @@ function handler()
         }
     
         $rawPost = file_get_contents('php://input');
-        if($hash !== hash_hmac($algo, $rawPost, $hookSecret)) {
+        if($hash !== hash_hmac($algo, $rawPost, DP_SECRET_KEY)) {
             header('HTTP/1.1 403 Forbidden');
-            echo "Hook secret dont match!\n";
+            echo "Dont validity the secret key!\n";
         }
     }
 
@@ -57,6 +56,7 @@ function handler()
             break;
 
         default:
+            header('HTTP/1.1 415');
             echo "Unsupported content\n";
 
     }

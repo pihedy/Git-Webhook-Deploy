@@ -1,29 +1,41 @@
 <?php
 
-/**
- * deploy
- * @param mixed $ignoredFiles 
- * @return mixed 
- */
- function deploy($json, $ignoredFiles = [])
+ /**
+  * deploy
+  * @param mixed $json 
+  * @param mixed $settings 
+  * @param mixed $ignoredFiles 
+  * @return mixed 
+  */
+ function deploy($json, $settings, $dirStat, $ignoredFiles)
  {
-    $branch = 'master';
-    $workingDir = __DIR__ . '/../public/';
-    $output = NULL;
 
     $payload = json_decode($json, TRUE);
 
     foreach($payload as $key=>$value) {
         $data[$key] = $value;
     }
+    
+    $fullName = explode('/', $data['repository']['full_name']);
+    $gitProfile = $fullName[1];
+    $repo = $fullName[2];
+    $shell = require_once DP_APP_PATH . '/commands.php';
+    
+    if(isset($data['zen']) || $dirStat == TRUE) {
 
-    if(!empty($data['after'])) {
-        $commit = $data['after'];
-    } else {
-        $commit = $branch;
+        foreach($shell['commands']['pairing'] as $command) {
+            shell_exec($command);
+            header('HTTP/1.1 200 OK');
+            echo "Pairing successful\n";
+            return TRUE;
+        }
+
+    } elseif(isset($data['ref']) || $dirStat == FALSE) {
+        
     }
 
-    $repo = $data['repository']['full_name'];
+    die();
+
 
     $commands = [
         'whoami',
@@ -41,7 +53,7 @@
     if(!empty($data['ref'])) {
         $refs = explode('/', $data['ref']);
     } else {
-        foreach($commands as $command) {
+        foreach($settings['commands']['pairing'] as $command) {
             shell_exec($command);
         }
         header('HTTP/1.1 200 OK');
