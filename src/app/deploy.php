@@ -4,6 +4,7 @@
   * deploy
   * @param mixed $json 
   * @param mixed $settings 
+  * @param mixed $dirStat 
   * @param mixed $ignoredFiles 
   * @return mixed 
   */

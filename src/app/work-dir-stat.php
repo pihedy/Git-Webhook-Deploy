@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * workDirStat
+ * @param mixed $workingDir 
+ * @return mixed 
+ */
 function workDirStat($workingDir) {
     
     if(!is_readable($workingDir)) {
