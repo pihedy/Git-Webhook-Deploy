@@ -64,9 +64,13 @@ function handler($settings)
     switch(strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
 
         case 'push':
-            echo "pong\n";
+            echo "Processed\n";
             break;
         
+        case 'ping':
+            echo "Pong\n";
+            break;
+
         default: 
             header('HTTP/1.0 404 Not Found');
 

@@ -17,18 +17,19 @@
     }
     
     $fullName = explode('/', $data['repository']['full_name']);
-    $gitProfile = $fullName[1];
-    $repo = $fullName[2];
-    $shell = require_once DP_APP_PATH . '/commands.php';
+    $gitProfile = $fullName[0];
+    $repo = $fullName[1];
+
+    $shell = require_once DP_PATH_APP . '/commands.php';
     
     if(isset($data['zen']) || $dirStat == TRUE) {
 
-        foreach($shell['commands']['pairing'] as $command) {
+        foreach($shell['pairing'] as $command) {
             shell_exec($command);
-            header('HTTP/1.1 200 OK');
-            echo "Pairing successful\n";
-            return TRUE;
         }
+        header('HTTP/1.1 200 OK');
+        echo "Pairing successful\n";
+        return TRUE;
 
     } elseif(isset($data['ref']) || $dirStat == FALSE) {
         
