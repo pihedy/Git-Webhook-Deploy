@@ -23,7 +23,7 @@
 
     $shell = require_once DP_PATH_APP . '/commands.php';
     
-    if(isset($data['zen']) || $dirStat === false) {
+    if(isset($data['zen']) || $dirStat === FALSE) {
 
         foreach($shell['pairing'] as $command) {
             shell_exec($command);
@@ -31,7 +31,7 @@
         header('HTTP/1.1 200 OK');
         echo "Pairing successful\n";
 
-    } elseif(isset($data['ref']) && $dirStat === true) {
+    } elseif(isset($data['ref']) && $dirStat === TRUE) {
 
         $refs = explode('/', $data['ref']);
 
@@ -57,27 +57,4 @@
 
     }
     return TRUE;
-    
-    $newFiles = array_unique(
-        array_merge(
-            $data['head_commit']['added'], 
-            $data['head_commit']['modified']
-        ), 
-        SORT_REGULAR
-    );
-
-    $files = array_diff($newFiles, $ignoredFiles);
-
-    foreach($files as $file) {
-        shell_exec(
-            'cp -a tmp/' . $data['repository']['name'] . '-' . $commit . '/' 
-            . $file 
-            . ' ' 
-            . $workingDir
-        );
-    }
-    
-    $removed = $data['head_commit']['removed'];
-
-    return true;
  }
