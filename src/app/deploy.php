@@ -19,57 +19,39 @@
     $fullName = explode('/', $data['repository']['full_name']);
     $gitProfile = $fullName[0];
     $repo = $fullName[1];
+    $data['after'] = isset($data['ref']) ? $data['after'] : "";
 
     $shell = require_once DP_PATH_APP . '/commands.php';
     
-    if(isset($data['zen']) || $dirStat == TRUE) {
+    if(isset($data['zen']) || $dirStat === false) {
 
         foreach($shell['pairing'] as $command) {
             shell_exec($command);
         }
         header('HTTP/1.1 200 OK');
         echo "Pairing successful\n";
-        return TRUE;
 
-    } elseif(isset($data['ref']) || $dirStat == FALSE) {
-        
-    }
+    } elseif(isset($data['ref']) && $dirStat === true) {
 
-    die();
-
-
-    $commands = [
-        'whoami',
-        'mkdir tmp',
-        'wget https://github.com/' 
-            . $repo 
-            . '/archive/' 
-            . $commit 
-            . '.zip ' 
-            . '-P tmp/ ' 
-            . '--https-only',
-        'unzip tmp/' . $commit . '.zip -d tmp/',
-    ];
-    
-    if(!empty($data['ref'])) {
         $refs = explode('/', $data['ref']);
-    } else {
-        foreach($settings['commands']['pairing'] as $command) {
-            shell_exec($command);
-        }
-        header('HTTP/1.1 200 OK');
-        echo "Pairing successful\n";
-        return;
-    }
-    
-    if($branch != $refs[2]) {
-        $output = 'Fail: ' . $refs[2];
-        return $output;
-    }
 
-    foreach($commands as $command) {
-        shell_exec($command);
+        if($refs[2] === DP_BRANCH) {
+
+            foreach($shell['update'] as $command) {
+                shell_exec($command);
+            }
+            header('HTTP/1.1 200 OK');
+            echo "Update successful\n";
+
+        } else {
+
+            header('HTTP/1.1 304 Not Modified');
+            echo "Not Modified\n";
+
+        }
+
     }
+    return TRUE;
     
     $newFiles = array_unique(
         array_merge(
