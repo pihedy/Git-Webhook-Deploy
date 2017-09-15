@@ -40,6 +40,11 @@
             foreach($shell['update'] as $command) {
                 shell_exec($command);
             }
+
+            foreach($data['head_commit']['removed'] as $removed) {
+                array_map('unlink', glob(WORKING_DIR . $removed));
+            }
+
             header('HTTP/1.1 200 OK');
             echo "Update successful\n";
 
