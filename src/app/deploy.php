@@ -10,17 +10,8 @@
   */
  function deploy($json, $settings, $dirStat, $ignoredFiles)
  {
-
-    $payload = json_decode($json, TRUE);
-
-    foreach($payload as $key=>$value) {
-        $data[$key] = $value;
-    }
     
-    $fullName = explode('/', $data['repository']['full_name']);
-    $gitProfile = $fullName[0];
-    $repo = $fullName[1];
-    $data['after'] = isset($data['ref']) ? $data['after'] : "";
+    
 
     $shell = require_once DP_PATH_APP . '/commands.php';
     

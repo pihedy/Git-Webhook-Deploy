@@ -7,7 +7,7 @@ define('DP_BRANCH', 'master');
 define('DP_SECRET_KEY', 'pihedmond');
 
 /* Working dir */
-define('WORKING_DIR', DP_PATH . '/test/');
+define('WORKING_DIR', DP_PATH . '/');
 
 /* Time tone */
 define('TIME_ZONE', 'Europe/Budapest');

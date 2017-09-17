@@ -19,8 +19,13 @@ if(workDirStat(WORKING_DIR) == NULL ) {
 }
 
 require_once DP_PATH_APP . '/handler.php';
+require_once DP_PATH_APP . '/validation.php';
+require_once DP_PATH_APP . '/download.php';
 require_once DP_PATH_APP . '/deploy.php';
 
 $dirStat = workDirStat(WORKING_DIR);
 $json = handler($settings);
+$repoData = branchValidation($json);
+archiveDownload($settings, $repoData);
+die('The End');
 deploy($json, $settings, $dirStat, $ignoredFiles);
