@@ -10,7 +10,6 @@
   */
  function deploy($json, $settings, $dirStat, $ignoredFiles)
  {
-
     $payload = json_decode($json, TRUE);
 
     foreach($payload as $key=>$value) {
@@ -29,7 +28,6 @@
         foreach($shell['pairing'] as $command) {
             shell_exec($command);
         }
-        header('HTTP/1.1 200 OK');
         echo "Pairing successful\n";
 
     } elseif(isset($data['ref']) && $dirStat === TRUE) {
@@ -46,7 +44,6 @@
                 array_map('unlink', glob(WORKING_DIR . $removed));
             }
 
-            header('HTTP/1.1 200 OK');
             echo "Update successful\n";
 
         } else {

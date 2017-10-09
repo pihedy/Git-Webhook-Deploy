@@ -4,7 +4,7 @@
 define('DP_PATH', __DIR__);
 
 /* NOTE: Project root */
-define('DP_PATH_ROOT', DP_PATH . '/..');
+define('DP_PATH_ROOT', DP_PATH . '/../../../gitploy');
 
 /* NOTE: App resource dir */
 define('DP_PATH_SRC', DP_PATH_ROOT . '/src');

@@ -8,8 +8,7 @@ return [
             . $data['repository']['full_name']
             . '/archive/'
             . DP_BRANCH
-            . '.zip '
-            . '--https-only',
+            . '.zip',
         'unzip tmp/' . DP_BRANCH . '.zip -d tmp/',
         'cd tmp/'
             . $data['repository']['name'] 
@@ -37,8 +36,7 @@ return [
             . $data['repository']['full_name']
             . '/archive/'
             . $data['after']
-            . '.zip '
-            . '--https-only',
+            . '.zip',
         'unzip tmp/'
             . $data['after'] 
             . '.zip -d tmp/',
