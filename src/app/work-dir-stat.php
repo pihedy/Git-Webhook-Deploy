@@ -5,8 +5,8 @@
  * @param mixed $workingDir 
  * @return mixed 
  */
-function workDirStat($workingDir) {
-    
+function workDirStat($workingDir) 
+{    
     if(!is_readable($workingDir)) {
         return NULL;
     }

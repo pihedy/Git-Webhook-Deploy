@@ -12,11 +12,11 @@ function handler($settings)
         throw new \ErrorException($message, 0, $severity, $file, $line);
     });
     
-    set_exception_handler(function($e) {
+    /* set_exception_handler(function($e) {
         header('HTTP/1.1 500 Internal Server Error');
         echo "Error on line {$e->getLine()}: " . htmlSpecialChars($e->getMessage());
         die();
-    });
+    }); */
     $rawPost = NULL;
     
     if(DP_SECRET_KEY !== NULL) {
